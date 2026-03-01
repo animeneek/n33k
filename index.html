@@ -1,178 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NEEK</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
+
+/* ================= ROOT ================= */
+
 :root{
-  --wrapper-bg:#e7e2d6;
-  --topbar-bg:#000000;
-  --accent:#FF4444;
+  --wrapper-bg:#000000;        /* ALWAYS BLACK */
+  --topbar-bg:#FF4444;         /* Changes per mode */
+  --accent:#FF4444;            /* Active accent */
 }
 
-*{margin:0;padding:0;box-sizing:border-box;transition:.3s ease;}
-body{
-  background:black;
-  display:flex;
-  justify-content:center;
-  padding:40px;
-  font-family:'Inter',sans-serif;
+/* ================= RESET ================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
-/* WRAPPER */
+html,body{
+  height:100%;
+  overflow:hidden; /* NO SCROLL */
+}
+
+/* ================= WRAPPER ================= */
+
 .wrapper{
-  width:1200px;
+  height:100vh;
+  width:100vw;
   background:var(--wrapper-bg);
-  border-radius:40px;
-  border:8px solid black;
-  padding:60px 50px 50px;
-  position:relative;
+  display:flex;
+  flex-direction:column;
 }
 
-/* TOP CURVED BAR */
+/* ================= TOPBAR ================= */
+
 .topbar{
-  position:absolute;
-  top:-8px;
-  left:50%;
-  transform:translateX(-50%);
-  width:75%;
-  height:80px;
+  height:70px;
   background:var(--topbar-bg);
-  border-radius:0 0 40px 40px;
   display:flex;
   align-items:center;
   justify-content:center;
-  color:white;
-  font-size:14px;
-}
-.topbar ul{display:flex;gap:40px;list-style:none;}
-
-/* HEADER ROW */
-.header{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:40px;
-}
-.logo{
-  font-family:'Oswald';
-  font-size:26px;
-}
-.join{
-  border:1px solid black;
-  padding:8px 18px;
-  border-radius:20px;
-  background:white;
+  font-weight:bold;
+  font-size:22px;
+  letter-spacing:2px;
+  color:#000;
 }
 
-/* MAIN GRID */
-.main-grid{
+/* ================= MAIN GRID ================= */
+
+.main-layout{
+  flex:1;
   display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:40px;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items:center;
+  padding:2vw;
 }
 
-/* TITLE */
-.title{
-  font-family:'Oswald';
-  font-size:100px;
-  line-height:.9;
+/* ================= SIDE IMAGES ================= */
+
+.side-images{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  align-items:center;
 }
 
-/* FIXED IMAGE BOXES */
-.hero-box{
-  margin-top:30px;
-  width:100%;
-  height:420px;
-  border-radius:30px;
-  overflow:hidden;
-}
-.hero-box img{
-  width:100%;
-  height:100%;
+.side-images img{
+  width:180px;
+  height:220px;
   object-fit:cover;
+  border-radius:14px;
+  transition:0.3s;
 }
 
-.side-box{
-  width:100%;
+/* ================= CENTER COLUMN ================= */
+
+.center-column{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+}
+
+/* ================= MAIN BOX ================= */
+
+.mode-main{
+  width:420px;
   height:520px;
-  border-radius:30px;
+  background:#111;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   overflow:hidden;
-  position:relative;
 }
-.side-box img{
+
+.mode-main img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
-.accent-strip{
+
+/* ================= MODE SELECTOR ================= */
+
+.mode-selector{
   position:absolute;
-  right:0;
-  top:0;
-  width:14px;
-  height:100%;
-  background:var(--accent);
+  bottom:30px;
+  right:30px;
+  display:flex;
+  gap:10px;
 }
 
-/* ENTER BUTTON (Centered cleanly) */
-.enter-wrap{
-  display:flex;
-  justify-content:center;
-  margin:40px 0;
-}
-.enter-btn{
-  width:160px;
-  height:160px;
-  border-radius:50%;
-  border:4px solid black;
-  background:black;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-}
-.enter-btn:hover{
-  background:var(--accent);
-  color:black;
-}
-
-/* BOTTOM PANEL (NOT FLOATING) */
-.bottom-panel{
-  margin-top:30px;
-  background:white;
-  border-radius:20px;
-  padding:25px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.panel-left{
-  max-width:60%;
-}
-.panel-title{
-  font-weight:600;
-  margin-bottom:8px;
-}
-
-.panel-options{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.panel-options button{
+.mode-selector button{
   padding:8px 14px;
   border:none;
-  border-radius:20px;
-  background:#eee;
-  cursor:pointer;
-}
-.panel-options button.active{
-  background:var(--accent);
+  border-radius:10px;
+  background:#222;
   color:white;
+  cursor:pointer;
+  transition:0.3s;
 }
+
+.mode-selector button:hover{
+  background:var(--accent);
+  color:#000;
+}
+
+/* ================= ENTER BUTTON ================= */
+
+.enter-btn{
+  width:220px;
+  height:55px;
+  background:var(--accent);
+  border:none;
+  border-radius:40px;
+  font-size:18px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.enter-btn:hover{
+  transform:scale(1.05);
+}
+
 </style>
 </head>
 
@@ -180,102 +157,108 @@ body{
 
 <div class="wrapper">
 
-<div class="topbar">
-  <ul>
-    <li>Lore</li>
-    <li>Universes</li>
-    <li>Archive</li>
-    <li>Contact</li>
-  </ul>
-</div>
+  <div class="topbar">
+    NEEK UNIVERSE
+  </div>
 
-<div class="header">
-  <div class="logo">NEEK°</div>
-  <div class="join">Join</div>
-</div>
+  <div class="main-layout">
 
-<div class="main-grid">
-
-  <div>
-    <div class="title" id="titleText">ANIME<br>NEEK</div>
-
-    <div class="hero-box">
-      <img id="mainImage" src="images/anime-main.jpg">
+    <!-- LEFT SIDE -->
+    <div class="side-images">
+      <img id="left1" src="images/anime1.jpg">
+      <img id="left2" src="images/anime2.jpg">
     </div>
+
+    <!-- CENTER -->
+    <div class="center-column">
+
+      <div class="mode-main">
+        <img id="mainImage" src="images/anime-main.jpg">
+      </div>
+
+      <button class="enter-btn">
+        START GENERATE
+      </button>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="side-images">
+      <img id="right1" src="images/anime3.jpg">
+      <img id="right2" src="images/anime4.jpg">
+    </div>
+
   </div>
 
-  <div class="side-box">
-    <div class="accent-strip"></div>
-    <img id="sideImage" src="images/anime-side.jpg">
+  <!-- MODE SELECTOR (BOTTOM RIGHT STYLE LIKE REF) -->
+  <div class="mode-selector">
+    <button onclick="setMode('anime')">Anime</button>
+    <button onclick="setMode('movies')">Movies/Series</button>
+    <button onclick="setMode('games')">Games</button>
+    <button onclick="setMode('secret')">Secret</button>
   </div>
-
-</div>
-
-<div class="enter-wrap">
-  <div class="enter-btn">ENTER</div>
-</div>
-
-<div class="bottom-panel">
-  <div class="panel-left">
-    <div class="panel-title">NEEK UNIVERSE MODE</div>
-    <div>Select your dimension.</div>
-  </div>
-
-  <div class="panel-options">
-    <button class="active" onclick="mode('anime',this)">Anime</button>
-    <button onclick="mode('movies',this)">Movies</button>
-    <button onclick="mode('games',this)">Games</button>
-    <button onclick="mode('secret',this)">Secret</button>
-  </div>
-</div>
 
 </div>
 
 <script>
-function mode(type,el){
 
-document.querySelectorAll('.panel-options button')
-.forEach(b=>b.classList.remove('active'));
-el.classList.add('active');
+/* ================= MODE SWITCHER ================= */
 
-const root=document.documentElement;
+function setMode(mode){
 
-if(type==='anime'){
-root.style.setProperty('--wrapper-bg','#e7e2d6');
-root.style.setProperty('--topbar-bg','#000000');
-root.style.setProperty('--accent','#FF4444');
-titleText.innerHTML="ANIME<br>NEEK";
-mainImage.src="images/anime-main.jpg";
-sideImage.src="images/anime-side.jpg";
+  const root = document.documentElement;
+
+  const main = document.getElementById("mainImage");
+  const l1 = document.getElementById("left1");
+  const l2 = document.getElementById("left2");
+  const r1 = document.getElementById("right1");
+  const r2 = document.getElementById("right2");
+
+  if(mode === "anime"){
+    root.style.setProperty("--accent","#FF4444");
+    root.style.setProperty("--topbar-bg","#FF4444");
+
+    main.src="images/anime-main.jpg";
+    l1.src="images/anime1.jpg";
+    l2.src="images/anime2.jpg";
+    r1.src="images/anime3.jpg";
+    r2.src="images/anime4.jpg";
+  }
+
+  if(mode === "movies"){
+    root.style.setProperty("--accent","#FF4444");
+    root.style.setProperty("--topbar-bg","#FF4444");
+
+    main.src="images/movie-main.jpg";
+    l1.src="images/movie1.jpg";
+    l2.src="images/movie2.jpg";
+    r1.src="images/movie3.jpg";
+    r2.src="images/movie4.jpg";
+  }
+
+  if(mode === "games"){
+    root.style.setProperty("--accent","#00E5FF");
+    root.style.setProperty("--topbar-bg","#00E5FF");
+
+    main.src="images/game-main.jpg";
+    l1.src="images/game1.jpg";
+    l2.src="images/game2.jpg";
+    r1.src="images/game3.jpg";
+    r2.src="images/game4.jpg";
+  }
+
+  if(mode === "secret"){
+    root.style.setProperty("--accent","#7A0000");
+    root.style.setProperty("--topbar-bg","#7A0000");
+
+    main.src="images/secret-main.jpg";
+    l1.src="images/secret1.jpg";
+    l2.src="images/secret2.jpg";
+    r1.src="images/secret3.jpg";
+    r2.src="images/secret4.jpg";
+  }
 }
 
-if(type==='movies'){
-root.style.setProperty('--wrapper-bg','#e7e2d6');
-root.style.setProperty('--topbar-bg','#111111');
-root.style.setProperty('--accent','#FF4444');
-titleText.innerHTML="MOVIES<br>NEEK";
-mainImage.src="images/movie-main.jpg";
-sideImage.src="images/movie-side.jpg";
-}
-
-if(type==='games'){
-root.style.setProperty('--wrapper-bg','#e0fbff');
-root.style.setProperty('--topbar-bg','#001f24');
-root.style.setProperty('--accent','#00E5FF');
-titleText.innerHTML="GAMES<br>NEEK";
-mainImage.src="images/game-main.jpg";
-sideImage.src="images/game-side.jpg";
-}
-
-if(type==='secret'){
-root.style.setProperty('--wrapper-bg','#2a0000');
-root.style.setProperty('--topbar-bg','#000000');
-root.style.setProperty('--accent','#7A0000');
-titleText.innerHTML="SECRET<br>NEEK";
-mainImage.src="images/secret-main.jpg";
-sideImage.src="images/secret-side.jpg";
-}
-}
 </script>
 
 </body>
