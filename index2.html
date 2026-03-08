@@ -1,0 +1,217 @@
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NEEK</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<script>
+tailwind.config = {
+theme:{
+extend:{
+fontFamily:{
+title:['Oswald'],
+body:['Inter']
+}
+}
+}
+}
+</script>
+
+</head>
+
+<body class="bg-black flex items-center justify-center min-h-screen font-body">
+
+<div class="w-[92vw] max-w-[1500px] h-[95vh] bg-black rounded-[40px] p-6 md:p-10 flex flex-col relative">
+
+<!-- TOPBAR -->
+
+<div class="absolute top-0 left-1/2 -translate-x-1/2 bg-red-500 text-black rounded-b-[30px] px-8 py-2">
+
+<ul class="flex gap-6 text-sm font-medium flex-wrap justify-center">
+
+<li><a href="index.html">Universes</a></li>
+
+<li><a href="lore.html">Lore</a></li>
+
+<li><a href="#">Archives</a></li>
+
+<li><a href="contact.html">Contact</a></li>
+
+</ul>
+
+</div>
+
+<!-- HEADER -->
+
+<div class="flex justify-between items-center mt-6">
+
+<div class="text-white text-2xl font-title">NEEK°</div>
+
+<a href="auth/login.html" class="bg-white text-black px-4 py-1 rounded-full text-sm">Join</a>
+
+</div>
+
+<!-- MAIN GRID -->
+
+<div class="grid md:grid-cols-2 gap-8 flex-1 items-center mt-4">
+
+<!-- LEFT -->
+
+<div>
+
+<h1 id="titleText" class="text-white font-title text-[70px] leading-[0.9]">
+ANIME<br>NEEK
+</h1>
+
+<div class="mt-4 rounded-[30px] overflow-hidden h-[300px] md:h-[360px]">
+
+<img id="mainImage"
+src="images/anime-main.jpg"
+class="w-full h-full object-cover">
+
+</div>
+
+</div>
+
+<!-- RIGHT IMAGE -->
+
+<div class="hidden md:block relative rounded-[30px] overflow-hidden h-[420px]">
+
+<div id="accentBar" class="absolute right-0 top-0 w-[10px] h-full bg-red-500"></div>
+
+<img id="sideImage"
+src="images/anime-side.jpg"
+class="w-full h-full object-cover">
+
+</div>
+
+</div>
+
+<!-- ENTER BUTTON -->
+
+<div class="flex justify-center my-4">
+
+<button onclick="enterUniverse()"
+class="border border-white text-white px-14 py-3 rounded-full hover:bg-red-500 hover:text-black transition">
+
+ENTER
+
+</button>
+
+</div>
+
+<!-- BOTTOM PANEL -->
+
+<div class="bg-white rounded-[25px] p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+<div>
+
+<div class="font-semibold">NEEK UNIVERSE MODE</div>
+
+<div class="text-sm text-gray-600">Select your dimension.</div>
+
+</div>
+
+<div class="grid grid-cols-2 md:flex gap-2">
+
+<button onclick="mode('anime',this)"
+class="modeBtn bg-red-500 text-white px-4 py-2 rounded-full text-sm">
+Anime
+</button>
+
+<button onclick="mode('movies',this)"
+class="modeBtn bg-gray-200 px-4 py-2 rounded-full text-sm">
+Movies
+</button>
+
+<button onclick="mode('games',this)"
+class="modeBtn bg-gray-200 px-4 py-2 rounded-full text-sm">
+Games
+</button>
+
+<button onclick="mode('neek',this)"
+class="modeBtn bg-gray-200 px-4 py-2 rounded-full text-sm">
+Neek
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+let currentMode = "anime"
+
+function mode(type,el){
+
+document.querySelectorAll(".modeBtn").forEach(b=>{
+b.classList.remove("bg-red-500","text-white")
+b.classList.add("bg-gray-200")
+})
+
+el.classList.add("bg-red-500","text-white")
+el.classList.remove("bg-gray-200")
+
+currentMode = type
+
+const title = document.getElementById("titleText")
+const accent = document.getElementById("accentBar")
+
+if(type==="anime"){
+title.innerHTML="ANIME<br>NEEK"
+accent.className="absolute right-0 top-0 w-[10px] h-full bg-red-500"
+}
+
+if(type==="movies"){
+title.innerHTML="MOVIES<br>NEEK"
+accent.className="absolute right-0 top-0 w-[10px] h-full bg-yellow-500"
+}
+
+if(type==="games"){
+title.innerHTML="GAMES<br>NEEK"
+accent.className="absolute right-0 top-0 w-[10px] h-full bg-cyan-400"
+}
+
+if(type==="neek"){
+title.innerHTML="NEEK<br>UNIVERSE"
+accent.className="absolute right-0 top-0 w-[10px] h-full bg-red-900"
+}
+
+}
+
+function enterUniverse(){
+
+if(currentMode==="anime"){
+window.location.href="anime.html"
+}
+
+if(currentMode==="movies"){
+window.location.href="movies.html"
+}
+
+if(currentMode==="games"){
+window.location.href="games.html"
+}
+
+if(currentMode==="neek"){
+window.location.href="neek.html"
+}
+
+}
+
+</script>
+
+</body>
+</html>
+
