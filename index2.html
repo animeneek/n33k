@@ -1,191 +1,421 @@
-html
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>NEEK</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-<script>
-tailwind.config = {
-theme:{
-extend:{
-fontFamily:{
-title:['Oswald'],
-body:['Inter']
-}
-}
-}
-}
-</script>
+<style>
 
+/* YOUR ENTIRE CSS UNCHANGED */
+
+:root{
+--wrapper-bg:#000000;
+--topbar-bg:#FF4444;
+--accent:#FF4444;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+html,body{
+height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* WRAPPER */
+
+.wrapper{
+width:92vw;
+max-width:1500px;
+height:95vh;
+background:var(--wrapper-bg);
+border-radius:40px;
+border:6px solid black;
+padding:40px 50px 30px;
+position:relative;
+display:flex;
+flex-direction:column;
+}
+
+/* TOPBAR */
+
+.topbar{
+position:absolute;
+top:-6px;
+left:50%;
+transform:translateX(-50%);
+width:70%;
+height:55px;
+background:var(--topbar-bg);
+border-radius:0 0 30px 30px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:black;
+font-size:13px;
+}
+
+.topbar ul{
+display:flex;
+gap:30px;
+list-style:none;
+}
+
+.topbar a{
+text-decoration:none;
+color:black;
+}
+
+/* HEADER */
+
+.header{
+display:flex;
+justify-content:space-between;
+margin-bottom:20px;
+}
+
+.logo{
+font-family:'Oswald';
+font-size:24px;
+color:white;
+}
+
+.join{
+border:1px solid white;
+padding:6px 16px;
+border-radius:30px;
+background:white;
+cursor:pointer;
+text-decoration:none;
+color:black;
+}
+
+/* MAIN GRID */
+
+.main-grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:40px;
+flex:1;
+align-items:center;
+}
+
+/* TITLE */
+
+.title{
+font-family:'Oswald';
+font-size:80px;
+line-height:.9;
+color:white;
+}
+
+/* HERO IMAGE */
+
+.hero-box{
+margin-top:20px;
+width:100%;
+height:360px;
+border-radius:30px;
+overflow:hidden;
+}
+
+.hero-box img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* SIDE IMAGE */
+
+.side-box{
+width:100%;
+height:450px;
+border-radius:30px;
+overflow:hidden;
+position:relative;
+}
+
+.side-box img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.accent-strip{
+position:absolute;
+right:0;
+top:0;
+width:12px;
+height:100%;
+background:var(--accent);
+}
+
+/* ENTER BUTTON */
+
+.enter-wrap{
+display:flex;
+justify-content:center;
+margin:20px 0;
+}
+
+.enter-btn{
+padding:14px 60px;
+border-radius:40px;
+border:2px solid white;
+background:black;
+color:white;
+font-weight:600;
+cursor:pointer;
+}
+
+.enter-btn:hover{
+background:var(--accent);
+color:black;
+}
+
+/* BOTTOM PANEL */
+
+.bottom-panel{
+background:white;
+border-radius:25px;
+padding:20px 25px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.panel-left{
+max-width:60%;
+}
+
+.panel-title{
+font-weight:600;
+margin-bottom:5px;
+}
+
+.panel-options{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.panel-options button{
+padding:10px 22px;
+border-radius:30px;
+border:none;
+background:#eee;
+font-weight:500;
+cursor:pointer;
+color:black;
+}
+
+.panel-options button.active{
+background:var(--accent);
+color:white;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+html,body{
+align-items:flex-start;
+height:100dvh;
+overflow:hidden;
+}
+
+.wrapper{
+height:100dvh;
+padding:20px;
+}
+
+.topbar{
+position:relative;
+top:0;
+width:100%;
+border-radius:30px;
+height:auto;
+padding:10px 0;
+margin-bottom:10px;
+}
+
+.topbar ul{
+justify-content:center;
+gap:15px;
+font-size:12px;
+flex-wrap:wrap;
+}
+
+.main-grid{
+grid-template-columns:1fr;
+gap:15px;
+}
+
+.side-box{
+display:none;
+}
+
+.title{
+font-size:40px;
+}
+
+.hero-box{
+height:190px;
+margin-top:10px;
+}
+
+.enter-wrap{
+margin:10px 0;
+}
+
+.enter-btn{
+width:100%;
+max-width:260px;
+}
+
+.bottom-panel{
+flex-direction:column;
+align-items:flex-start;
+gap:12px;
+padding:15px;
+}
+
+.panel-left{
+max-width:100%;
+}
+
+.panel-options{
+width:100%;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+}
+
+.panel-options button{
+width:100%;
+padding:10px 0;
+font-size:13px;
+}
+
+}
+
+</style>
 </head>
 
-<body class="bg-black flex items-center justify-center min-h-screen font-body">
+<body>
 
-<div class="w-[92vw] max-w-[1500px] h-[95vh] bg-black rounded-[40px] p-6 md:p-10 flex flex-col relative">
+<div class="wrapper">
 
-<!-- TOPBAR -->
-
-<div class="absolute top-0 left-1/2 -translate-x-1/2 bg-red-500 text-black rounded-b-[30px] px-8 py-2">
-
-<ul class="flex gap-6 text-sm font-medium flex-wrap justify-center">
-
+<div class="topbar">
+<ul>
 <li><a href="index.html">Universes</a></li>
-
 <li><a href="lore.html">Lore</a></li>
-
-<li><a href="#">Archives</a></li>
-
+<li><a href="archives.html">Archive</a></li>
 <li><a href="contact.html">Contact</a></li>
-
 </ul>
-
 </div>
 
-<!-- HEADER -->
-
-<div class="flex justify-between items-center mt-6">
-
-<div class="text-white text-2xl font-title">NEEK°</div>
-
-<a href="auth/login.html" class="bg-white text-black px-4 py-1 rounded-full text-sm">Join</a>
-
+<div class="header">
+<div class="logo">NEEK°</div>
+<a href="auth/login.html" class="join">Join</a>
 </div>
 
-<!-- MAIN GRID -->
-
-<div class="grid md:grid-cols-2 gap-8 flex-1 items-center mt-4">
-
-<!-- LEFT -->
+<div class="main-grid">
 
 <div>
 
-<h1 id="titleText" class="text-white font-title text-[70px] leading-[0.9]">
-ANIME<br>NEEK
-</h1>
+<div class="title" id="titleText">ANIME<br>NEEK</div>
 
-<div class="mt-4 rounded-[30px] overflow-hidden h-[300px] md:h-[360px]">
-
-<img id="mainImage"
-src="images/anime-main.jpg"
-class="w-full h-full object-cover">
-
+<div class="hero-box">
+<img id="mainImage" src="images/anime-main.jpg">
 </div>
 
 </div>
 
-<!-- RIGHT IMAGE -->
-
-<div class="hidden md:block relative rounded-[30px] overflow-hidden h-[420px]">
-
-<div id="accentBar" class="absolute right-0 top-0 w-[10px] h-full bg-red-500"></div>
-
-<img id="sideImage"
-src="images/anime-side.jpg"
-class="w-full h-full object-cover">
-
+<div class="side-box">
+<div class="accent-strip"></div>
+<img id="sideImage" src="images/anime-side.jpg">
 </div>
 
 </div>
 
-<!-- ENTER BUTTON -->
-
-<div class="flex justify-center my-4">
-
-<button onclick="enterUniverse()"
-class="border border-white text-white px-14 py-3 rounded-full hover:bg-red-500 hover:text-black transition">
-
-ENTER
-
-</button>
-
+<div class="enter-wrap">
+<button class="enter-btn" onclick="enterUniverse()">ENTER</button>
 </div>
 
-<!-- BOTTOM PANEL -->
+<div class="bottom-panel">
 
-<div class="bg-white rounded-[25px] p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
-<div>
-
-<div class="font-semibold">NEEK UNIVERSE MODE</div>
-
-<div class="text-sm text-gray-600">Select your dimension.</div>
-
+<div class="panel-left">
+<div class="panel-title">NEEK UNIVERSE MODE</div>
+<div>Select your dimension.</div>
 </div>
 
-<div class="grid grid-cols-2 md:flex gap-2">
-
-<button onclick="mode('anime',this)"
-class="modeBtn bg-red-500 text-white px-4 py-2 rounded-full text-sm">
-Anime
-</button>
-
-<button onclick="mode('movies',this)"
-class="modeBtn bg-gray-200 px-4 py-2 rounded-full text-sm">
-Movies
-</button>
-
-<button onclick="mode('games',this)"
-class="modeBtn bg-gray-200 px-4 py-2 rounded-full text-sm">
-Games
-</button>
-
-<button onclick="mode('neek',this)"
-class="modeBtn bg-gray-200 px-4 py-2 rounded-full text-sm">
-Neek
-</button>
-
+<div class="panel-options">
+<button class="active" onclick="mode('anime',this)">Anime</button>
+<button onclick="mode('movies',this)">Movies/Series</button>
+<button onclick="mode('games',this)">Games</button>
+<button onclick="mode('neek',this)">Neek</button>
 </div>
 
 </div>
 
 </div>
-
 
 <script>
 
-let currentMode = "anime"
+let currentMode = "anime";
 
 function mode(type,el){
 
-document.querySelectorAll(".modeBtn").forEach(b=>{
-b.classList.remove("bg-red-500","text-white")
-b.classList.add("bg-gray-200")
-})
+document.querySelectorAll('.panel-options button')
+.forEach(b=>b.classList.remove('active'));
 
-el.classList.add("bg-red-500","text-white")
-el.classList.remove("bg-gray-200")
+el.classList.add('active');
 
-currentMode = type
+currentMode = type;
 
-const title = document.getElementById("titleText")
-const accent = document.getElementById("accentBar")
+const root=document.documentElement;
 
-if(type==="anime"){
-title.innerHTML="ANIME<br>NEEK"
-accent.className="absolute right-0 top-0 w-[10px] h-full bg-red-500"
+if(type==='anime'){
+root.style.setProperty('--accent','#FF4444');
+root.style.setProperty('--topbar-bg','#FF4444');
+titleText.innerHTML="ANIME<br>NEEK";
+mainImage.src="images/anime-main.jpg";
+sideImage.src="images/anime-side.jpg";
 }
 
-if(type==="movies"){
-title.innerHTML="MOVIES<br>NEEK"
-accent.className="absolute right-0 top-0 w-[10px] h-full bg-yellow-500"
+if(type==='movies'){
+root.style.setProperty('--accent','#D4AF37');
+root.style.setProperty('--topbar-bg','#D4AF37');
+titleText.innerHTML="MOVIES<br>NEEK";
+mainImage.src="images/movie-main.jpg";
+sideImage.src="images/movie-side.jpg";
 }
 
-if(type==="games"){
-title.innerHTML="GAMES<br>NEEK"
-accent.className="absolute right-0 top-0 w-[10px] h-full bg-cyan-400"
+if(type==='games'){
+root.style.setProperty('--accent','#00E5FF');
+root.style.setProperty('--topbar-bg','#00E5FF');
+titleText.innerHTML="GAMES<br>NEEK";
+mainImage.src="images/game-main.jpg";
+sideImage.src="images/game-side.jpg";
 }
 
-if(type==="neek"){
-title.innerHTML="NEEK<br>UNIVERSE"
-accent.className="absolute right-0 top-0 w-[10px] h-full bg-red-900"
+if(type==='neek'){
+root.style.setProperty('--accent','#7A0000');
+root.style.setProperty('--topbar-bg','#7A0000');
+titleText.innerHTML="NEEK<br>UNIVERSE";
+mainImage.src="images/neek-main.jpg";
+sideImage.src="images/neek-side.jpg";
 }
 
 }
@@ -193,19 +423,19 @@ accent.className="absolute right-0 top-0 w-[10px] h-full bg-red-900"
 function enterUniverse(){
 
 if(currentMode==="anime"){
-window.location.href="anime.html"
+window.location.href="anime.html";
 }
 
 if(currentMode==="movies"){
-window.location.href="movies.html"
+window.location.href="movies.html";
 }
 
 if(currentMode==="games"){
-window.location.href="games.html"
+window.location.href="games.html";
 }
 
 if(currentMode==="neek"){
-window.location.href="neek.html"
+window.location.href="neek.html";
 }
 
 }
@@ -214,4 +444,3 @@ window.location.href="neek.html"
 
 </body>
 </html>
-
