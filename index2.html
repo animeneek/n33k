@@ -9,19 +9,19 @@
 
 <style>
 
-/* YOUR ENTIRE CSS UNCHANGED */
-
 :root{
 --wrapper-bg:#000000;
 --topbar-bg:#FF4444;
 --accent:#FF4444;
 }
 
+/* smooth color transition */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
+transition:background .25s ease,color .25s ease;
 }
 
 html,body{
@@ -61,7 +61,6 @@ border-radius:0 0 30px 30px;
 display:flex;
 align-items:center;
 justify-content:center;
-color:black;
 font-size:13px;
 }
 
@@ -117,6 +116,8 @@ font-family:'Oswald';
 font-size:80px;
 line-height:.9;
 color:white;
+opacity:1;
+transition:opacity .25s ease;
 }
 
 /* HERO IMAGE */
@@ -133,6 +134,8 @@ overflow:hidden;
 width:100%;
 height:100%;
 object-fit:cover;
+opacity:1;
+transition:opacity .25s ease;
 }
 
 /* SIDE IMAGE */
@@ -149,6 +152,8 @@ position:relative;
 width:100%;
 height:100%;
 object-fit:cover;
+opacity:1;
+transition:opacity .25s ease;
 }
 
 .accent-strip{
@@ -373,70 +378,75 @@ font-size:13px;
 
 <script>
 
-let currentMode = "anime";
+let currentMode="anime"
+
+function fadeSwap(newMain,newSide,newTitle){
+
+const main=document.getElementById("mainImage")
+const side=document.getElementById("sideImage")
+const title=document.getElementById("titleText")
+
+main.style.opacity=0
+side.style.opacity=0
+title.style.opacity=0
+
+setTimeout(()=>{
+
+main.src=newMain
+side.src=newSide
+title.innerHTML=newTitle
+
+main.style.opacity=1
+side.style.opacity=1
+title.style.opacity=1
+
+},180)
+
+}
 
 function mode(type,el){
 
 document.querySelectorAll('.panel-options button')
-.forEach(b=>b.classList.remove('active'));
+.forEach(b=>b.classList.remove('active'))
 
-el.classList.add('active');
+el.classList.add('active')
 
-currentMode = type;
+currentMode=type
 
-const root=document.documentElement;
+const root=document.documentElement
 
-if(type==='anime'){
-root.style.setProperty('--accent','#FF4444');
-root.style.setProperty('--topbar-bg','#FF4444');
-titleText.innerHTML="ANIME<br>NEEK";
-mainImage.src="images/anime-main.jpg";
-sideImage.src="images/anime-side.jpg";
+if(type==="anime"){
+root.style.setProperty('--accent','#FF4444')
+root.style.setProperty('--topbar-bg','#FF4444')
+fadeSwap("images/anime-main.jpg","images/anime-side.jpg","ANIME<br>NEEK")
 }
 
-if(type==='movies'){
-root.style.setProperty('--accent','#D4AF37');
-root.style.setProperty('--topbar-bg','#D4AF37');
-titleText.innerHTML="MOVIES<br>NEEK";
-mainImage.src="images/movie-main.jpg";
-sideImage.src="images/movie-side.jpg";
+if(type==="movies"){
+root.style.setProperty('--accent','#D4AF37')
+root.style.setProperty('--topbar-bg','#D4AF37')
+fadeSwap("images/movie-main.jpg","images/movie-side.jpg","MOVIES<br>NEEK")
 }
 
-if(type==='games'){
-root.style.setProperty('--accent','#00E5FF');
-root.style.setProperty('--topbar-bg','#00E5FF');
-titleText.innerHTML="GAMES<br>NEEK";
-mainImage.src="images/game-main.jpg";
-sideImage.src="images/game-side.jpg";
+if(type==="games"){
+root.style.setProperty('--accent','#00E5FF')
+root.style.setProperty('--topbar-bg','#00E5FF')
+fadeSwap("images/game-main.jpg","images/game-side.jpg","GAMES<br>NEEK")
 }
 
-if(type==='neek'){
-root.style.setProperty('--accent','#7A0000');
-root.style.setProperty('--topbar-bg','#7A0000');
-titleText.innerHTML="NEEK<br>UNIVERSE";
-mainImage.src="images/neek-main.jpg";
-sideImage.src="images/neek-side.jpg";
+if(type==="neek"){
+root.style.setProperty('--accent','#9CA3AF')
+root.style.setProperty('--topbar-bg','#9CA3AF')
+fadeSwap("images/neek-main.jpg","images/neek-side.jpg","NEEK<br>UNIVERSE")
 }
 
 }
 
 function enterUniverse(){
 
-if(currentMode==="anime"){
-window.location.href="anime.html";
-}
-
-if(currentMode==="movies"){
-window.location.href="movies.html";
-}
-
-if(currentMode==="games"){
-window.location.href="games.html";
-}
-
-if(currentMode==="neek"){
-window.location.href="neek.html";
-}
+if(currentMode==="anime") window.location="anime.html"
+if(currentMode==="movies") window.location="movies.html"
+if(currentMode==="games") window.location="games.html"
+if(currentMode==="neek") window.location="neek.html"
 
 }
 
