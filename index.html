@@ -4,247 +4,323 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NEEK</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
-  --wrapper-bg:#000000;
-  --topbar-bg:#FF4444;
-  --accent:#FF4444;
+--wrapper-bg:#000000;
+--topbar-bg:#FF4444;
+--accent:#FF4444;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;transition:.3s ease;}
-body{
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  font-family:'Inter',sans-serif;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+html,body{
+height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
 }
 
 /* WRAPPER */
+
 .wrapper{
-  width:92vw;
-  max-width:1500px;
-  height:95vh;               /* Fits screen */
-  background:var(--wrapper-bg);
-  border-radius:40px;
-  border:6px solid black;
-  padding:40px 50px 30px;
-  position:relative;
-  display:flex;
-  flex-direction:column;
+width:92vw;
+max-width:1500px;
+height:95vh;
+background:var(--wrapper-bg);
+border-radius:40px;
+border:6px solid black;
+padding:40px 50px 30px;
+position:relative;
+display:flex;
+flex-direction:column;
 }
 
-/* TOP CURVED BAR */
+/* TOPBAR */
+
 .topbar{
-  position:absolute;
-  top:-6px;
-  left:50%;
-  transform:translateX(-50%);
-  width:70%;
-  height:55px;              /* Reduced height */
-  background:var(--topbar-bg);
-  border-radius:0 0 30px 30px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:black;
-  font-size:13px;
-}
-.topbar ul{
-  display:flex;
-  gap:30px;
-  list-style:none;
-  flex-wrap:wrap;
+position:absolute;
+top:-6px;
+left:50%;
+transform:translateX(-50%);
+width:70%;
+height:55px;
+background:var(--topbar-bg);
+border-radius:0 0 30px 30px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:black;
+font-size:13px;
 }
 
-/* HEADER ROW */
+.topbar ul{
+display:flex;
+gap:30px;
+list-style:none;
+}
+
+/* HEADER */
+
 .header{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:20px;
+display:flex;
+justify-content:space-between;
+margin-bottom:20px;
 }
+
 .logo{
-  font-family:'Oswald';
-  font-size:24px;
-  color:white;
+font-family:'Oswald';
+font-size:24px;
+color:white;
 }
+
 .join{
-  border:1px solid white;
-  padding:6px 16px;
-  border-radius:30px;
-  background:white;
+border:1px solid white;
+padding:6px 16px;
+border-radius:30px;
+background:white;
+cursor:pointer;
 }
 
 /* MAIN GRID */
+
 .main-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:40px;
-  flex:1;
-  align-items:center;
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:40px;
+flex:1;
+align-items:center;
 }
 
 /* TITLE */
+
 .title{
-  font-family:'Oswald';
-  font-size:80px;  /* Slightly reduced to fit height */
-  line-height:.9;
-  color:white;
+font-family:'Oswald';
+font-size:80px;
+line-height:.9;
+color:white;
 }
 
-/* IMAGE BOXES */
-.hero-box{
-  margin-top:20px;
-  width:100%;
-  height:360px;   /* Slightly reduced */
-  border-radius:30px;
-  overflow:hidden;
-}
-.hero-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}  
-
-/* ===== CUSTOM SHAPED HERO BOX ===== 
+/* HERO IMAGE */
 
 .hero-box{
-  margin-top:20px;
-  width:100%;
-  height:360px;
-  overflow:hidden;
-  position:relative;
-
-  /* Rounded corners 
-  border-radius:30px;
-
-  /* Custom slanted cuts 
-  clip-path: polygon(
-    0% 12%,      /* bottom-left cut start 
-    12% 0%,      
-    100% 0%,     
-    100% 88%,    
-    88% 100%,    /* top-right cut 
-    0% 100%
-  );
+margin-top:20px;
+width:100%;
+height:360px;
+border-radius:30px;
+overflow:hidden;
 }
 
 .hero-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-} */
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* SIDE IMAGE */
 
 .side-box{
-  width:100%;
-  height:450px;
-  border-radius:30px;
-  overflow:hidden;
-  position:relative;
+width:100%;
+height:450px;
+border-radius:30px;
+overflow:hidden;
+position:relative;
 }
+
 .side-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+width:100%;
+height:100%;
+object-fit:cover;
 }
+
 .accent-strip{
-  position:absolute;
-  right:0;
-  top:0;
-  width:12px;
-  height:100%;
-  background:var(--accent);
+position:absolute;
+right:0;
+top:0;
+width:12px;
+height:100%;
+background:var(--accent);
 }
 
 /* ENTER BUTTON */
+
 .enter-wrap{
-  display:flex;
-  justify-content:center;
-  margin:25px 0;
+display:flex;
+justify-content:center;
+margin:20px 0;
 }
+
 .enter-btn{
-  padding:14px 60px;
-  border-radius:40px;
-  border:2px solid white;
-  background:black;
-  color:white;
-  font-weight:600;
-  cursor:pointer;
+padding:14px 60px;
+border-radius:40px;
+border:2px solid white;
+background:black;
+color:white;
+font-weight:600;
+cursor:pointer;
 }
+
 .enter-btn:hover{
-  background:var(--accent);
-  color:black;
+background:var(--accent);
+color:black;
 }
 
 /* BOTTOM PANEL */
+
 .bottom-panel{
-  background:white;
-  border-radius:25px;
-  padding:20px 25px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+background:white;
+border-radius:25px;
+padding:20px 25px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .panel-left{
-  max-width:60%;
+max-width:60%;
 }
+
 .panel-title{
-  font-weight:600;
-  margin-bottom:5px;
+font-weight:600;
+margin-bottom:5px;
 }
 
 .panel-options{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
 }
+
+/* BUTTON FIX (no blue text anywhere) */
+
 .panel-options button{
-  padding:10px 22px;
-  border-radius:30px;
-  border:none;
-  background:#eee;
-  font-weight:500;
-  cursor:pointer;
+padding:10px 22px;
+border-radius:30px;
+border:none;
+background:#eee;
+font-weight:500;
+cursor:pointer;
+color:black;
+text-decoration:none;
+appearance:none;
+-webkit-appearance:none;
 }
+
 .panel-options button.active{
-  background:var(--accent);
-  color:white;
+background:var(--accent);
+color:white;
 }
 
 /* MOBILE */
+
 @media(max-width:900px){
 
-  .wrapper{
-    height:98vh;
-    padding:30px 25px;
-  }
-
-  .main-grid{
-    grid-template-columns:1fr;
-    gap:20px;
-  }
-
-  .side-box{
-    display:none;
-  }
-
-  .title{
-    font-size:60px;
-  }
-
-  .hero-box{
-    height:280px;
-  }
-
-  .topbar{
-    width:90%;
-    font-size:12px;
-  }
+html,body{
+align-items:flex-start;
+height:100dvh;
+overflow:hidden;
 }
+
+.wrapper{
+height:100dvh;
+padding:20px;
+}
+
+/* topbar becomes pill */
+
+.topbar{
+position:relative;
+top:0;
+width:100%;
+border-radius:30px;
+height:auto;
+padding:10px 0;
+margin-bottom:10px;
+}
+
+.topbar ul{
+justify-content:center;
+gap:15px;
+font-size:12px;
+flex-wrap:wrap;
+}
+
+/* grid becomes single */
+
+.main-grid{
+grid-template-columns:1fr;
+gap:15px;
+}
+
+/* hide side image */
+
+.side-box{
+display:none;
+}
+
+/* smaller title */
+
+.title{
+font-size:40px;
+}
+
+/* hero image */
+
+.hero-box{
+height:190px;
+margin-top:10px;
+}
+
+/* enter button */
+
+.enter-wrap{
+margin:10px 0;
+}
+
+.enter-btn{
+width:100%;
+max-width:260px;
+}
+
+/* bottom panel vertical */
+
+.bottom-panel{
+flex-direction:column;
+align-items:flex-start;
+gap:12px;
+padding:15px;
+}
+
+.panel-left{
+max-width:100%;
+}
+
+/* buttons grid */
+
+.panel-options{
+width:100%;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+}
+
+.panel-options button{
+width:100%;
+padding:10px 0;
+font-size:13px;
+}
+
+}
+
 </style>
 </head>
 
@@ -253,61 +329,67 @@ body{
 <div class="wrapper">
 
 <div class="topbar">
-  <ul>
-    <li>Lore</li>
-    <li>Universes</li>
-    <li>Archive</li>
-    <li>Contact</li>
-  </ul>
+<ul>
+<li>Lore</li>
+<li>Universes</li>
+<li>Archive</li>
+<li>Contact</li>
+</ul>
 </div>
 
 <div class="header">
-  <div class="logo">NEEK°</div>
-  <div class="join">Join</div>
+<div class="logo">NEEK°</div>
+<div class="join">Join</div>
 </div>
 
 <div class="main-grid">
 
-  <div>
-    <div class="title" id="titleText">ANIME<br>NEEK</div>
+<div>
 
-    <div class="hero-box">
-      <img id="mainImage" src="images/anime-main.jpg">
-    </div>
-  </div>
+<div class="title" id="titleText">ANIME<br>NEEK</div>
 
-  <div class="side-box">
-    <div class="accent-strip"></div>
-    <img id="sideImage" src="images/anime-side.jpg">
-  </div>
+<div class="hero-box">
+<img id="mainImage" src="images/anime-main.jpg">
+</div>
+
+</div>
+
+<div class="side-box">
+<div class="accent-strip"></div>
+<img id="sideImage" src="images/anime-side.jpg">
+</div>
 
 </div>
 
 <div class="enter-wrap">
-  <button class="enter-btn">ENTER</button>
+<button class="enter-btn">ENTER</button>
 </div>
 
 <div class="bottom-panel">
-  <div class="panel-left">
-    <div class="panel-title">NEEK UNIVERSE MODE</div>
-    <div>Select your dimension.</div>
-  </div>
 
-  <div class="panel-options">
-    <button class="active" onclick="mode('anime',this)">Anime</button>
-    <button onclick="mode('movies',this)">Movies/Series</button>
-    <button onclick="mode('games',this)">Games</button>
-    <button onclick="mode('secret',this)">Secret</button>
-  </div>
+<div class="panel-left">
+<div class="panel-title">NEEK UNIVERSE MODE</div>
+<div>Select your dimension.</div>
+</div>
+
+<div class="panel-options">
+<button class="active" onclick="mode('anime',this)">Anime</button>
+<button onclick="mode('movies',this)">Movies/Series</button>
+<button onclick="mode('games',this)">Games</button>
+<button onclick="mode('secret',this)">Secret</button>
+</div>
+
 </div>
 
 </div>
 
 <script>
+
 function mode(type,el){
 
 document.querySelectorAll('.panel-options button')
 .forEach(b=>b.classList.remove('active'));
+
 el.classList.add('active');
 
 const root=document.documentElement;
@@ -321,7 +403,7 @@ sideImage.src="images/anime-side.jpg";
 }
 
 if(type==='movies'){
-root.style.setProperty('--accent','#D4AF37'); /* GOLD */
+root.style.setProperty('--accent','#D4AF37');
 root.style.setProperty('--topbar-bg','#D4AF37');
 titleText.innerHTML="MOVIES<br>NEEK";
 mainImage.src="images/movie-main.jpg";
@@ -343,7 +425,9 @@ titleText.innerHTML="SECRET<br>NEEK";
 mainImage.src="images/secret-main.jpg";
 sideImage.src="images/secret-side.jpg";
 }
+
 }
+
 </script>
 
 </body>
