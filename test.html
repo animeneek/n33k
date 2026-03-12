@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Anime Player</title>
+
 <style>
 body{
   background:#111;
@@ -9,10 +10,17 @@ body{
   font-family:sans-serif;
   text-align:center;
 }
+
 iframe{
   width:80%;
   height:500px;
   margin-top:20px;
+}
+
+#videourl{
+  margin-top:10px;
+  color:#4ade80;
+  word-break:break-all;
 }
 </style>
 </head>
@@ -40,6 +48,8 @@ iframe{
 <br>
 
 <iframe id="player" allowfullscreen></iframe>
+
+<div id="videourl"></div>
 
 <script>
 
@@ -92,6 +102,9 @@ function play(){
  const url=`https://vidsrc.xyz/embed/anime/${id}/${ep}`
 
  document.getElementById("player").src=url
+
+ document.getElementById("videourl").innerHTML =
+ "Video URL: <a href='"+url+"' target='_blank'>"+url+"</a>"
 }
 
 document.getElementById("anime").addEventListener("change",loadEpisodes)
