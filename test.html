@@ -1,113 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <title>Anime Player</title>
-
-<style>
-body{
-  background:#111;
-  color:white;
-  font-family:sans-serif;
-  text-align:center;
-}
-
-iframe{
-  width:80%;
-  height:500px;
-  margin-top:20px;
-}
-
-#videourl{
-  margin-top:10px;
-  color:#4ade80;
-  word-break:break-all;
-}
-</style>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-gray-900 text-white min-h-screen">
 
-<h2>Anime Player</h2>
+<div class="max-w-4xl mx-auto p-6">
 
-<input id="search" placeholder="Search anime">
-<button onclick="search()">Search</button>
+<h1 class="text-3xl font-bold mb-6 text-center">Anime Player</h1>
 
-<br><br>
+<div class="flex gap-2 mb-4">
+<input id="search" class="flex-1 p-2 rounded text-black" placeholder="Search anime">
+<button onclick="searchAnime()" class="bg-blue-500 px-4 py-2 rounded">Search</button>
+</div>
 
-<select id="anime"></select>
+<div class="grid grid-cols-3 gap-3 mb-4">
 
-<select id="episode"></select>
+<select id="animeSelect" class="p-2 text-black rounded"></select>
 
-<select id="lang">
+<select id="episodeSelect" class="p-2 text-black rounded"></select>
+
+<select id="typeSelect" class="p-2 text-black rounded">
 <option value="sub">Sub</option>
 <option value="dub">Dub</option>
 </select>
 
-<button onclick="play()">Play</button>
+</div>
 
-<br>
+<button onclick="playAnime()" class="w-full bg-green-500 py-2 rounded mb-4">
+Play Episode
+</button>
 
-<iframe id="player" allowfullscreen></iframe>
+<div class="aspect-video bg-black rounded overflow-hidden">
+<iframe id="player" class="w-full h-full" allowfullscreen></iframe>
+</div>
 
-<div id="videourl"></div>
+<div class="mt-3 text-sm text-green-400 break-all" id="videoURL"></div>
+
+</div>
 
 <script>
 
-async function search(){
+let animeList=[]
 
- const q=document.getElementById("search").value
+async function searchAnime(){
 
- const r=await fetch(`https://api.jikan.moe/v4/anime?q=${q}&limit=10`)
- const d=await r.json()
+const q=document.getElementById("search").value
 
- const sel=document.getElementById("anime")
- sel.innerHTML=""
+const res=await fetch(`https://api.jikan.moe/v4/anime?q=${q}&limit=10`)
+const data=await res.json()
 
- d.data.forEach(a=>{
-   const o=document.createElement("option")
-   o.value=a.mal_id
-   o.text=a.title
-   sel.appendChild(o)
- })
+animeList=data.data
 
- loadEpisodes()
+const select=document.getElementById("animeSelect")
+select.innerHTML=""
+
+animeList.forEach(a=>{
+const opt=document.createElement("option")
+opt.value=a.mal_id
+opt.text=a.title
+select.appendChild(opt)
+})
+
+loadEpisodes()
 }
 
 async function loadEpisodes(){
 
- const id=document.getElementById("anime").value
+const id=document.getElementById("animeSelect").value
 
- const r=await fetch(`https://api.jikan.moe/v4/anime/${id}`)
- const d=await r.json()
+const res=await fetch(`https://api.jikan.moe/v4/anime/${id}`)
+const data=await res.json()
 
- const ep=d.data.episodes || 12
+const epCount=data.data.episodes || 12
 
- const sel=document.getElementById("episode")
- sel.innerHTML=""
+const epSelect=document.getElementById("episodeSelect")
+epSelect.innerHTML=""
 
- for(let i=1;i<=ep;i++){
-   const o=document.createElement("option")
-   o.value=i
-   o.text="Episode "+i
-   sel.appendChild(o)
- }
+for(let i=1;i<=epCount;i++){
+const opt=document.createElement("option")
+opt.value=i
+opt.text="Episode "+i
+epSelect.appendChild(opt)
+}
 
 }
 
-function play(){
+function playAnime(){
 
- const id=document.getElementById("anime").value
- const ep=document.getElementById("episode").value
+const id=document.getElementById("animeSelect").value
+const ep=document.getElementById("episodeSelect").value
 
- const url=`https://vidsrc.xyz/embed/anime/${id}/${ep}`
+// example embed source
+const embed=`https://vidsrc.xyz/embed/anime/${id}/${ep}`
 
- document.getElementById("player").src=url
+document.getElementById("player").src=embed
 
- document.getElementById("videourl").innerHTML =
- "Video URL: <a href='"+url+"' target='_blank'>"+url+"</a>"
+document.getElementById("videoURL").innerHTML=
+`Embed URL: <a href="${embed}" target="_blank" class="underline">${embed}</a>`
+
 }
 
-document.getElementById("anime").addEventListener("change",loadEpisodes)
+document.getElementById("animeSelect").addEventListener("change",loadEpisodes)
 
 </script>
 
