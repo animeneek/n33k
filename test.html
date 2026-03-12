@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Anime Player</title>
+<style>
+body{
+  background:#111;
+  color:white;
+  font-family:sans-serif;
+  text-align:center;
+}
+iframe{
+  width:80%;
+  height:500px;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Anime Player</h2>
+
+<input id="search" placeholder="Search anime">
+<button onclick="search()">Search</button>
+
+<br><br>
+
+<select id="anime"></select>
+
+<select id="episode"></select>
+
+<select id="lang">
+<option value="sub">Sub</option>
+<option value="dub">Dub</option>
+</select>
+
+<button onclick="play()">Play</button>
+
+<br>
+
+<iframe id="player" allowfullscreen></iframe>
+
+<script>
+
+async function search(){
+
+ const q=document.getElementById("search").value
+
+ const r=await fetch(`https://api.jikan.moe/v4/anime?q=${q}&limit=10`)
+ const d=await r.json()
+
+ const sel=document.getElementById("anime")
+ sel.innerHTML=""
+
+ d.data.forEach(a=>{
+   const o=document.createElement("option")
+   o.value=a.mal_id
+   o.text=a.title
+   sel.appendChild(o)
+ })
+
+ loadEpisodes()
+}
+
+async function loadEpisodes(){
+
+ const id=document.getElementById("anime").value
+
+ const r=await fetch(`https://api.jikan.moe/v4/anime/${id}`)
+ const d=await r.json()
+
+ const ep=d.data.episodes || 12
+
+ const sel=document.getElementById("episode")
+ sel.innerHTML=""
+
+ for(let i=1;i<=ep;i++){
+   const o=document.createElement("option")
+   o.value=i
+   o.text="Episode "+i
+   sel.appendChild(o)
+ }
+
+}
+
+function play(){
+
+ const id=document.getElementById("anime").value
+ const ep=document.getElementById("episode").value
+
+ const url=`https://vidsrc.xyz/embed/anime/${id}/${ep}`
+
+ document.getElementById("player").src=url
+}
+
+document.getElementById("anime").addEventListener("change",loadEpisodes)
+
+</script>
+
+</body>
+</html>
