@@ -49,7 +49,6 @@ border-radius:30px;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:13px;
 margin-bottom:30px;
 }
 
@@ -71,7 +70,13 @@ cursor:pointer;
 }
 
 .topbar i{
-font-size:13px;
+font-size:14px;
+}
+
+/* TEXT LABEL */
+
+.nav-text{
+display:inline;
 }
 
 /* HEADER */
@@ -124,7 +129,7 @@ margin-bottom:14px;
 color:var(--accent);
 }
 
-/* SCROLLER */
+/* MOVIE SCROLL */
 
 .movies{
 display:flex;
@@ -137,7 +142,7 @@ padding-bottom:10px;
 display:none;
 }
 
-/* POSTER */
+/* POSTERS */
 
 .poster{
 flex:0 0 auto;
@@ -194,15 +199,28 @@ font-size:18px;
 
 /* MOBILE */
 
-@media(max-width:700px){
+@media(max-width:720px){
 
 body{
 padding:20px;
 }
 
+/* FULL WIDTH PILL */
+
 .topbar{
 width:100%;
-border-radius:30px;
+}
+
+/* HIDE TEXT */
+
+.nav-text{
+display:none;
+}
+
+/* TIGHTER ICON SPACING */
+
+.topbar ul{
+gap:20px;
 }
 
 .poster{
@@ -223,31 +241,36 @@ width:120px;
 
 <li>
 <a href="index.html">
-<i class="fa-solid fa-globe"></i> Universes
+<i class="fa-solid fa-globe"></i>
+<span class="nav-text">Universes</span>
 </a>
 </li>
 
 <li>
 <a href="movies.html">
-<i class="fa-solid fa-film"></i> Movies/Series
+<i class="fa-solid fa-film"></i>
+<span class="nav-text">Movies/Series</span>
 </a>
 </li>
 
 <li>
 <a>
-<i class="fa-solid fa-fire"></i> Trending
+<i class="fa-solid fa-fire"></i>
+<span class="nav-text">Trending</span>
 </a>
 </li>
 
 <li>
 <a>
-<i class="fa-solid fa-star"></i> New
+<i class="fa-solid fa-star"></i>
+<span class="nav-text">New</span>
 </a>
 </li>
 
 <li>
 <a>
-<i class="fa-solid fa-trophy"></i> Top Rated
+<i class="fa-solid fa-trophy"></i>
+<span class="nav-text">Top Rated</span>
 </a>
 </li>
 
