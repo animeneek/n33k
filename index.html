@@ -15,11 +15,13 @@
 --accent:#FF4444;
 }
 
+/* smooth color transition */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Inter',sans-serif;
+transition:background .25s ease,color .25s ease;
 }
 
 html,body{
@@ -59,7 +61,6 @@ border-radius:0 0 30px 30px;
 display:flex;
 align-items:center;
 justify-content:center;
-color:black;
 font-size:13px;
 }
 
@@ -67,6 +68,11 @@ font-size:13px;
 display:flex;
 gap:30px;
 list-style:none;
+}
+
+.topbar a{
+text-decoration:none;
+color:black;
 }
 
 /* HEADER */
@@ -89,6 +95,8 @@ padding:6px 16px;
 border-radius:30px;
 background:white;
 cursor:pointer;
+text-decoration:none;
+color:black;
 }
 
 /* MAIN GRID */
@@ -108,6 +116,8 @@ font-family:'Oswald';
 font-size:80px;
 line-height:.9;
 color:white;
+opacity:1;
+transition:opacity .25s ease;
 }
 
 /* HERO IMAGE */
@@ -124,6 +134,8 @@ overflow:hidden;
 width:100%;
 height:100%;
 object-fit:cover;
+opacity:1;
+transition:opacity .25s ease;
 }
 
 /* SIDE IMAGE */
@@ -140,6 +152,8 @@ position:relative;
 width:100%;
 height:100%;
 object-fit:cover;
+opacity:1;
+transition:opacity .25s ease;
 }
 
 .accent-strip{
@@ -200,8 +214,6 @@ gap:10px;
 flex-wrap:wrap;
 }
 
-/* BUTTON FIX (no blue text anywhere) */
-
 .panel-options button{
 padding:10px 22px;
 border-radius:30px;
@@ -210,9 +222,6 @@ background:#eee;
 font-weight:500;
 cursor:pointer;
 color:black;
-text-decoration:none;
-appearance:none;
--webkit-appearance:none;
 }
 
 .panel-options button.active{
@@ -235,8 +244,6 @@ height:100dvh;
 padding:20px;
 }
 
-/* topbar becomes pill */
-
 .topbar{
 position:relative;
 top:0;
@@ -254,33 +261,23 @@ font-size:12px;
 flex-wrap:wrap;
 }
 
-/* grid becomes single */
-
 .main-grid{
 grid-template-columns:1fr;
 gap:15px;
 }
 
-/* hide side image */
-
 .side-box{
 display:none;
 }
-
-/* smaller title */
 
 .title{
 font-size:40px;
 }
 
-/* hero image */
-
 .hero-box{
 height:190px;
 margin-top:10px;
 }
-
-/* enter button */
 
 .enter-wrap{
 margin:10px 0;
@@ -290,8 +287,6 @@ margin:10px 0;
 width:100%;
 max-width:260px;
 }
-
-/* bottom panel vertical */
 
 .bottom-panel{
 flex-direction:column;
@@ -303,8 +298,6 @@ padding:15px;
 .panel-left{
 max-width:100%;
 }
-
-/* buttons grid */
 
 .panel-options{
 width:100%;
@@ -330,16 +323,16 @@ font-size:13px;
 
 <div class="topbar">
 <ul>
-<li>Lore</li>
-<li>Universes</li>
-<li>Archive</li>
-<li>Contact</li>
+<li><a href="index.html">Universes</a></li>
+<li><a href="lore.html">Lore</a></li>
+<li><a href="archives.html">Archive</a></li>
+<li><a href="contact.html">Contact</a></li>
 </ul>
 </div>
 
 <div class="header">
 <div class="logo">NEEK°</div>
-<div class="join">Join</div>
+<a href="auth/login.html" class="join">Join</a>
 </div>
 
 <div class="main-grid">
@@ -362,7 +355,7 @@ font-size:13px;
 </div>
 
 <div class="enter-wrap">
-<button class="enter-btn">ENTER</button>
+<button class="enter-btn" onclick="enterUniverse()">ENTER</button>
 </div>
 
 <div class="bottom-panel">
@@ -376,7 +369,7 @@ font-size:13px;
 <button class="active" onclick="mode('anime',this)">Anime</button>
 <button onclick="mode('movies',this)">Movies/Series</button>
 <button onclick="mode('games',this)">Games</button>
-<button onclick="mode('secret',this)">Secret</button>
+<button onclick="mode('neek',this)">Neek</button>
 </div>
 
 </div>
@@ -385,46 +378,75 @@ font-size:13px;
 
 <script>
 
+let currentMode="anime"
+
+function fadeSwap(newMain,newSide,newTitle){
+
+const main=document.getElementById("mainImage")
+const side=document.getElementById("sideImage")
+const title=document.getElementById("titleText")
+
+main.style.opacity=0
+side.style.opacity=0
+title.style.opacity=0
+
+setTimeout(()=>{
+
+main.src=newMain
+side.src=newSide
+title.innerHTML=newTitle
+
+main.style.opacity=1
+side.style.opacity=1
+title.style.opacity=1
+
+},180)
+
+}
+
 function mode(type,el){
 
 document.querySelectorAll('.panel-options button')
-.forEach(b=>b.classList.remove('active'));
+.forEach(b=>b.classList.remove('active'))
 
-el.classList.add('active');
+el.classList.add('active')
 
-const root=document.documentElement;
+currentMode=type
 
-if(type==='anime'){
-root.style.setProperty('--accent','#FF4444');
-root.style.setProperty('--topbar-bg','#FF4444');
-titleText.innerHTML="ANIME<br>NEEK";
-mainImage.src="images/anime-main.jpg";
-sideImage.src="images/anime-side.jpg";
+const root=document.documentElement
+
+if(type==="anime"){
+root.style.setProperty('--accent','#FF4444')
+root.style.setProperty('--topbar-bg','#FF4444')
+fadeSwap("images/anime-main.jpg","images/anime-side.jpg","ANIME<br>NEEK")
 }
 
-if(type==='movies'){
-root.style.setProperty('--accent','#D4AF37');
-root.style.setProperty('--topbar-bg','#D4AF37');
-titleText.innerHTML="MOVIES<br>NEEK";
-mainImage.src="images/movie-main.jpg";
-sideImage.src="images/movie-side.jpg";
+if(type==="movies"){
+root.style.setProperty('--accent','#D4AF37')
+root.style.setProperty('--topbar-bg','#D4AF37')
+fadeSwap("images/movie-main.jpg","images/movie-side.jpg","MOVIES<br>NEEK")
 }
 
-if(type==='games'){
-root.style.setProperty('--accent','#00E5FF');
-root.style.setProperty('--topbar-bg','#00E5FF');
-titleText.innerHTML="GAMES<br>NEEK";
-mainImage.src="images/game-main.jpg";
-sideImage.src="images/game-side.jpg";
+if(type==="games"){
+root.style.setProperty('--accent','#00E5FF')
+root.style.setProperty('--topbar-bg','#00E5FF')
+fadeSwap("images/game-main.jpg","images/game-side.jpg","GAMES<br>NEEK")
 }
 
-if(type==='secret'){
-root.style.setProperty('--accent','#7A0000');
-root.style.setProperty('--topbar-bg','#7A0000');
-titleText.innerHTML="SECRET<br>NEEK";
-mainImage.src="images/secret-main.jpg";
-sideImage.src="images/secret-side.jpg";
+if(type==="neek"){
+root.style.setProperty('--accent','#9CA3AF')
+root.style.setProperty('--topbar-bg','#9CA3AF')
+fadeSwap("images/neek-main.jpg","images/neek-side.jpg","NEEK<br>UNIVERSE")
 }
+
+}
+
+function enterUniverse(){
+
+if(currentMode==="anime") window.location="anime.html"
+if(currentMode==="movies") window.location="movies.html"
+if(currentMode==="games") window.location="games.html"
+if(currentMode==="neek") window.location="neek.html"
 
 }
 
