@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Movie Neek</title>
+<title>Movies • NEEK</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
@@ -13,7 +11,6 @@
 
 :root{
 --accent:#D4AF37;
---bg:#000;
 }
 
 *{
@@ -28,6 +25,12 @@ background:black;
 color:white;
 min-height:100vh;
 padding:30px;
+opacity:0;
+animation:fadeIn .4s ease forwards;
+}
+
+@keyframes fadeIn{
+to{opacity:1}
 }
 
 /* HEADER */
@@ -41,79 +44,88 @@ margin-bottom:30px;
 
 .logo{
 font-family:'Oswald';
-font-size:28px;
+font-size:26px;
 }
 
-.back{
-text-decoration:none;
+.join{
+background:white;
 color:black;
-background:var(--accent);
-padding:8px 16px;
+padding:6px 16px;
 border-radius:30px;
-font-weight:600;
+text-decoration:none;
 }
 
-/* PAGE TITLE */
+/* TOP NAV */
 
-.title{
-font-family:'Oswald';
-font-size:50px;
-margin-bottom:25px;
+.nav{
+display:flex;
+gap:25px;
+margin-bottom:30px;
+font-size:14px;
+flex-wrap:wrap;
+}
+
+.nav a{
+text-decoration:none;
+color:#aaa;
+}
+
+.nav a:hover{
 color:var(--accent);
 }
 
-/* MOVIE GRID */
+/* ROW */
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-gap:20px;
+.row{
+margin-bottom:40px;
 }
 
-.movie{
-border-radius:14px;
-overflow:hidden;
+.row-title{
+font-family:'Oswald';
+font-size:26px;
+margin-bottom:15px;
+color:var(--accent);
+}
+
+/* MOVIE SCROLLER */
+
+.movies{
+display:flex;
+gap:14px;
+overflow-x:auto;
+padding-bottom:10px;
+}
+
+.movies::-webkit-scrollbar{
+display:none;
+}
+
+/* POSTER */
+
+.poster{
+flex:0 0 auto;
+width:150px;
 cursor:pointer;
-position:relative;
 }
 
-.movie img{
+.poster img{
 width:100%;
-height:240px;
+aspect-ratio:2/3;
 object-fit:cover;
+border-radius:10px;
 transition:transform .25s ease;
 }
 
-.movie:hover img{
-transform:scale(1.08);
-}
-
-/* TITLE OVERLAY */
-
-.overlay{
-position:absolute;
-bottom:0;
-left:0;
-right:0;
-background:linear-gradient(transparent,rgba(0,0,0,.9));
-padding:10px;
-font-size:14px;
-}
-
-.overlay span{
-font-weight:500;
+.poster img:hover{
+transform:scale(1.06);
 }
 
 /* MOBILE */
 
 @media(max-width:700px){
 
-.title{
-font-size:36px;
-}
-
-.movie img{
-height:200px;
+.poster{
+width:120px;
 }
 
 }
@@ -125,52 +137,84 @@ height:200px;
 
 <div class="header">
 
-<div class="logo">MOVIE NEEK</div>
+<div class="logo">NEEK° MOVIES</div>
 
-<a class="back" href="index.html">Back</a>
+<a class="join" href="auth/login.html">Join</a>
 
 </div>
 
-<div class="title">Trending Movies</div>
+<div class="nav">
 
-<div class="grid" id="movieGrid"></div>
+<a href="index.html">Home</a>
+<a href="movies.html">Movies</a>
+<a href="#">Trending</a>
+<a href="#">Popular</a>
+<a href="#">Top Rated</a>
+<a href="#">TV Series</a>
+
+</div>
+
+<div id="content"></div>
 
 <script>
 
-const apiKey="e3afd4c89e3351edad9e875ff7a01f0c"
+const API="https://api.themoviedb.org/3"
+const KEY="e3afd4c89e3351edad9e875ff7a01f0c"
+const IMG="https://image.tmdb.org/t/p/w500"
 
-async function loadMovies(){
+const rows=[
+{title:"Trending This Week",url:"/trending/movie/week",type:"movie"},
+{title:"Popular Movies",url:"/movie/popular",type:"movie"},
+{title:"Top Rated Movies",url:"/movie/top_rated",type:"movie"},
+{title:"Now Playing",url:"/movie/now_playing",type:"movie"},
+{title:"Popular TV Series",url:"/tv/popular",type:"series"}
+]
 
-const url=`https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}`
+async function loadRow(row){
 
-const res=await fetch(url)
+const res=await fetch(API+row.url+"?api_key="+KEY)
 const data=await res.json()
 
-const grid=document.getElementById("movieGrid")
+const section=document.createElement("div")
+section.className="row"
 
-data.results.forEach(movie=>{
-
-const poster="https://image.tmdb.org/t/p/w500"+movie.poster_path
-
-const el=document.createElement("div")
-el.className="movie"
-
-el.innerHTML=`
-<img src="${poster}">
-<div class="overlay"><span>${movie.title}</span></div>
+section.innerHTML=`
+<div class="row-title">${row.title}</div>
+<div class="movies"></div>
 `
 
+const container=section.querySelector(".movies")
+
+data.results.slice(0,15).forEach(item=>{
+
+const poster=item.poster_path?IMG+item.poster_path:""
+
+const el=document.createElement("div")
+el.className="poster"
+
+el.innerHTML=`<img src="${poster}">`
+
 el.onclick=()=>{
-window.open(`https://www.themoviedb.org/movie/${movie.id}`,"_blank")
+window.location="m-info.html?id="+item.id+"&type="+row.type
 }
 
-grid.appendChild(el)
+container.appendChild(el)
 
 })
 
+document.getElementById("content").appendChild(section)
+
 }
 
-loadMovies()
+async function init(){
+
+for(const r of rows){
+await loadRow(r)
+}
+
+}
+
+init()
 
 </script>
 
