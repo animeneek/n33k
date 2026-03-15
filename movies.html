@@ -11,6 +11,7 @@
 
 :root{
 --accent:#D4AF37;
+--topbar-bg:#D4AF37;
 }
 
 *{
@@ -24,13 +25,43 @@ body{
 background:black;
 color:white;
 min-height:100vh;
-padding:30px;
+padding:40px;
 opacity:0;
 animation:fadeIn .4s ease forwards;
 }
 
 @keyframes fadeIn{
 to{opacity:1}
+}
+
+/* TOPBAR (same structure as index) */
+
+.topbar{
+position:relative;
+width:70%;
+margin:auto;
+height:55px;
+background:var(--topbar-bg);
+border-radius:0 0 30px 30px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:black;
+font-size:13px;
+margin-bottom:25px;
+}
+
+.topbar ul{
+display:flex;
+gap:30px;
+list-style:none;
+align-items:center;
+}
+
+.topbar a{
+text-decoration:none;
+color:black;
+font-weight:500;
 }
 
 /* HEADER */
@@ -47,31 +78,70 @@ font-family:'Oswald';
 font-size:26px;
 }
 
+.header-right{
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.back{
+border:1px solid white;
+padding:6px 14px;
+border-radius:30px;
+background:black;
+color:white;
+text-decoration:none;
+}
+
 .join{
+border:1px solid white;
+padding:6px 14px;
+border-radius:30px;
 background:white;
 color:black;
-padding:6px 16px;
-border-radius:30px;
 text-decoration:none;
 }
 
-/* TOP NAV */
+/* SEARCH ICON */
 
-.nav{
+.search{
+font-size:20px;
+cursor:pointer;
+}
+
+/* SEARCH OVERLAY */
+
+.search-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.95);
 display:flex;
-gap:25px;
-margin-bottom:30px;
-font-size:14px;
-flex-wrap:wrap;
+align-items:center;
+justify-content:center;
+opacity:0;
+pointer-events:none;
+transition:.3s;
 }
 
-.nav a{
-text-decoration:none;
-color:#aaa;
+.search-overlay.active{
+opacity:1;
+pointer-events:auto;
 }
 
-.nav a:hover{
-color:var(--accent);
+.search-box{
+width:90%;
+max-width:600px;
+}
+
+.search-box input{
+width:100%;
+padding:18px;
+border-radius:30px;
+border:none;
+font-size:18px;
 }
 
 /* ROW */
@@ -82,12 +152,12 @@ margin-bottom:40px;
 
 .row-title{
 font-family:'Oswald';
-font-size:26px;
-margin-bottom:15px;
+font-size:28px;
+margin-bottom:14px;
 color:var(--accent);
 }
 
-/* MOVIE SCROLLER */
+/* SCROLLER */
 
 .movies{
 display:flex;
@@ -117,12 +187,21 @@ transition:transform .25s ease;
 }
 
 .poster img:hover{
-transform:scale(1.06);
+transform:scale(1.07);
 }
 
 /* MOBILE */
 
 @media(max-width:700px){
+
+body{
+padding:20px;
+}
+
+.topbar{
+width:100%;
+border-radius:30px;
+}
 
 .poster{
 width:120px;
@@ -135,26 +214,43 @@ width:120px;
 
 <body>
 
+<!-- TOPBAR -->
+
+<div class="topbar">
+<ul>
+<li><a href="index.html">Universes</a></li>
+<li><a href="movies.html">Movies/Series</a></li>
+<li><a href="#">Trending</a></li>
+<li><a href="#">New</a></li>
+<li><a href="#">Top Rated</a></li>
+<li class="search" onclick="openSearch()">🔍</li>
+</ul>
+</div>
+
+<!-- HEADER -->
+
 <div class="header">
 
 <div class="logo">NEEK° MOVIES</div>
 
+<div class="header-right">
+<a class="back" href="index.html">Back</a>
 <a class="join" href="auth/login.html">Join</a>
-
 </div>
-
-<div class="nav">
-
-<a href="index.html">Home</a>
-<a href="movies.html">Movies</a>
-<a href="#">Trending</a>
-<a href="#">Popular</a>
-<a href="#">Top Rated</a>
-<a href="#">TV Series</a>
 
 </div>
 
 <div id="content"></div>
+
+<!-- SEARCH OVERLAY -->
+
+<div class="search-overlay" id="searchOverlay">
+
+<div class="search-box">
+<input placeholder="Search movies or series..." onkeydown="goSearch(event,this)">
+</div>
+
+</div>
 
 <script>
 
@@ -215,6 +311,26 @@ await loadRow(r)
 }
 
 init()
+
+/* SEARCH */
+
+function openSearch(){
+document.getElementById("searchOverlay").classList.add("active")
+}
+
+function goSearch(e,input){
+
+if(e.key==="Enter"){
+window.location="m-search.html?q="+encodeURIComponent(input.value)
+}
+
+}
+
+document.getElementById("searchOverlay").onclick=(e)=>{
+if(e.target.id==="searchOverlay"){
+e.target.classList.remove("active")
+}
+}
 
 </script>
 
