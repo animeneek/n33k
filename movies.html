@@ -37,19 +37,20 @@ animation:fadeIn .4s ease forwards;
 to{opacity:1}
 }
 
-/* TOPBAR */
+/* TOPBAR (same behavior as index.html) */
 
 .topbar{
-position:relative;
-margin:auto;
+position:absolute;
+top:-6px;
+left:50%;
+transform:translateX(-50%);
 width:70%;
 height:55px;
 background:var(--topbar-bg);
-border-radius:30px;
+border-radius:0 0 30px 30px;
 display:flex;
 align-items:center;
 justify-content:center;
-margin-bottom:30px;
 }
 
 .topbar ul{
@@ -73,8 +74,6 @@ cursor:pointer;
 font-size:14px;
 }
 
-/* TEXT LABEL */
-
 .nav-text{
 display:inline;
 }
@@ -85,6 +84,7 @@ display:inline;
 display:flex;
 justify-content:space-between;
 align-items:center;
+margin-top:50px;
 margin-bottom:30px;
 }
 
@@ -129,7 +129,7 @@ margin-bottom:14px;
 color:var(--accent);
 }
 
-/* MOVIE SCROLL */
+/* MOVIE SCROLLER */
 
 .movies{
 display:flex;
@@ -205,19 +205,17 @@ body{
 padding:20px;
 }
 
-/* FULL WIDTH PILL */
-
 .topbar{
+position:relative;
+top:0;
 width:100%;
+border-radius:30px;
+margin-bottom:20px;
 }
-
-/* HIDE TEXT */
 
 .nav-text{
 display:none;
 }
-
-/* TIGHTER ICON SPACING */
 
 .topbar ul{
 gap:20px;
@@ -225,6 +223,10 @@ gap:20px;
 
 .poster{
 width:120px;
+}
+
+.header{
+margin-top:0;
 }
 
 }
@@ -359,11 +361,9 @@ document.getElementById("content").appendChild(section)
 }
 
 async function init(){
-
 for(const r of rows){
 await loadRow(r)
 }
-
 }
 
 init()
