@@ -1,1 +1,179 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Movie Neek</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--accent:#D4AF37;
+--bg:#000;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+body{
+background:black;
+color:white;
+min-height:100vh;
+padding:30px;
+}
+
+/* HEADER */
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.logo{
+font-family:'Oswald';
+font-size:28px;
+}
+
+.back{
+text-decoration:none;
+color:black;
+background:var(--accent);
+padding:8px 16px;
+border-radius:30px;
+font-weight:600;
+}
+
+/* PAGE TITLE */
+
+.title{
+font-family:'Oswald';
+font-size:50px;
+margin-bottom:25px;
+color:var(--accent);
+}
+
+/* MOVIE GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+gap:20px;
+}
+
+.movie{
+border-radius:14px;
+overflow:hidden;
+cursor:pointer;
+position:relative;
+}
+
+.movie img{
+width:100%;
+height:240px;
+object-fit:cover;
+transition:transform .25s ease;
+}
+
+.movie:hover img{
+transform:scale(1.08);
+}
+
+/* TITLE OVERLAY */
+
+.overlay{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+background:linear-gradient(transparent,rgba(0,0,0,.9));
+padding:10px;
+font-size:14px;
+}
+
+.overlay span{
+font-weight:500;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.title{
+font-size:36px;
+}
+
+.movie img{
+height:200px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="logo">MOVIE NEEK</div>
+
+<a class="back" href="index.html">Back</a>
+
+</div>
+
+<div class="title">Trending Movies</div>
+
+<div class="grid" id="movieGrid"></div>
+
+<script>
+
+const apiKey="e3afd4c89e3351edad9e875ff7a01f0c"
+
+async function loadMovies(){
+
+const url=`https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}`
+
+const res=await fetch(url)
+const data=await res.json()
+
+const grid=document.getElementById("movieGrid")
+
+data.results.forEach(movie=>{
+
+const poster="https://image.tmdb.org/t/p/w500"+movie.poster_path
+
+const el=document.createElement("div")
+el.className="movie"
+
+el.innerHTML=`
+<img src="${poster}">
+<div class="overlay"><span>${movie.title}</span></div>
+`
+
+el.onclick=()=>{
+window.open(`https://www.themoviedb.org/movie/${movie.id}`,"_blank")
+}
+
+grid.appendChild(el)
+
+})
+
+}
+
+loadMovies()
+
+</script>
+
+</body>
+</html>
+```
