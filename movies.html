@@ -3,9 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movies • NEEK</title>
+
+<title>NEEK Movies</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 
@@ -34,26 +37,25 @@ animation:fadeIn .4s ease forwards;
 to{opacity:1}
 }
 
-/* TOPBAR (same structure as index) */
+/* TOPBAR */
 
 .topbar{
 position:relative;
-width:70%;
 margin:auto;
+width:70%;
 height:55px;
 background:var(--topbar-bg);
-border-radius:0 0 30px 30px;
+border-radius:30px;
 display:flex;
 align-items:center;
 justify-content:center;
-color:black;
 font-size:13px;
-margin-bottom:25px;
+margin-bottom:30px;
 }
 
 .topbar ul{
 display:flex;
-gap:30px;
+gap:28px;
 list-style:none;
 align-items:center;
 }
@@ -62,6 +64,14 @@ align-items:center;
 text-decoration:none;
 color:black;
 font-weight:500;
+display:flex;
+align-items:center;
+gap:6px;
+cursor:pointer;
+}
+
+.topbar i{
+font-size:13px;
 }
 
 /* HEADER */
@@ -75,13 +85,12 @@ margin-bottom:30px;
 
 .logo{
 font-family:'Oswald';
-font-size:26px;
+font-size:28px;
 }
 
 .header-right{
 display:flex;
 gap:10px;
-align-items:center;
 }
 
 .back{
@@ -102,49 +111,7 @@ color:black;
 text-decoration:none;
 }
 
-/* SEARCH ICON */
-
-.search{
-font-size:20px;
-cursor:pointer;
-}
-
-/* SEARCH OVERLAY */
-
-.search-overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.95);
-display:flex;
-align-items:center;
-justify-content:center;
-opacity:0;
-pointer-events:none;
-transition:.3s;
-}
-
-.search-overlay.active{
-opacity:1;
-pointer-events:auto;
-}
-
-.search-box{
-width:90%;
-max-width:600px;
-}
-
-.search-box input{
-width:100%;
-padding:18px;
-border-radius:30px;
-border:none;
-font-size:18px;
-}
-
-/* ROW */
+/* ROWS */
 
 .row{
 margin-bottom:40px;
@@ -190,6 +157,41 @@ transition:transform .25s ease;
 transform:scale(1.07);
 }
 
+/* SEARCH OVERLAY */
+
+.search-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.95);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+pointer-events:none;
+transition:.3s;
+}
+
+.search-overlay.active{
+opacity:1;
+pointer-events:auto;
+}
+
+.search-box{
+width:90%;
+max-width:600px;
+}
+
+.search-box input{
+width:100%;
+padding:18px;
+border-radius:30px;
+border:none;
+font-size:18px;
+}
+
 /* MOBILE */
 
 @media(max-width:700px){
@@ -218,12 +220,43 @@ width:120px;
 
 <div class="topbar">
 <ul>
-<li><a href="index.html">Universes</a></li>
-<li><a href="movies.html">Movies/Series</a></li>
-<li><a href="#">Trending</a></li>
-<li><a href="#">New</a></li>
-<li><a href="#">Top Rated</a></li>
-<li class="search" onclick="openSearch()">🔍</li>
+
+<li>
+<a href="index.html">
+<i class="fa-solid fa-globe"></i> Universes
+</a>
+</li>
+
+<li>
+<a href="movies.html">
+<i class="fa-solid fa-film"></i> Movies/Series
+</a>
+</li>
+
+<li>
+<a>
+<i class="fa-solid fa-fire"></i> Trending
+</a>
+</li>
+
+<li>
+<a>
+<i class="fa-solid fa-star"></i> New
+</a>
+</li>
+
+<li>
+<a>
+<i class="fa-solid fa-trophy"></i> Top Rated
+</a>
+</li>
+
+<li>
+<a onclick="openSearch()">
+<i class="fa-solid fa-magnifying-glass"></i>
+</a>
+</li>
+
 </ul>
 </div>
 
@@ -242,7 +275,7 @@ width:120px;
 
 <div id="content"></div>
 
-<!-- SEARCH OVERLAY -->
+<!-- SEARCH -->
 
 <div class="search-overlay" id="searchOverlay">
 
@@ -312,18 +345,14 @@ await loadRow(r)
 
 init()
 
-/* SEARCH */
-
 function openSearch(){
 document.getElementById("searchOverlay").classList.add("active")
 }
 
 function goSearch(e,input){
-
 if(e.key==="Enter"){
 window.location="m-search.html?q="+encodeURIComponent(input.value)
 }
-
 }
 
 document.getElementById("searchOverlay").onclick=(e)=>{
